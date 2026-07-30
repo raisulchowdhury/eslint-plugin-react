@@ -446,6 +446,75 @@ ruleTester.run('jsx-closing-bracket-location', rule, {
     },
     {
       code: `
+        <App
+          foo
+          // baz */
+        />
+      `,
+      output: null,
+      options: [{ location: 'after-props' }],
+      errors: [
+        {
+          messageId: 'bracketLocation',
+          data: {
+            location: MESSAGE_AFTER_PROPS,
+            details: '',
+          },
+        },
+      ],
+    },
+    {
+      code: `
+        <App
+          foo
+          // bar
+          // baz
+        />
+      `,
+      output: `
+        <App
+          foo
+          // bar
+          /* baz */ />
+      `,
+      options: [{ location: 'after-props' }],
+      errors: [
+        {
+          messageId: 'bracketLocation',
+          data: {
+            location: MESSAGE_AFTER_PROPS,
+            details: '',
+          },
+        },
+      ],
+    },
+    {
+      code: `
+        <App
+          foo
+          // bar
+          // baz
+        ></App>
+      `,
+      output: `
+        <App
+          foo
+          // bar
+          /* baz */ ></App>
+      `,
+      options: [{ location: 'after-props' }],
+      errors: [
+        {
+          messageId: 'bracketLocation',
+          data: {
+            location: MESSAGE_AFTER_PROPS,
+            details: '',
+          },
+        },
+      ],
+    },
+    {
+      code: `
         <App foo
         ></App>
       `,
