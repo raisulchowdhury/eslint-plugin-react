@@ -2316,6 +2316,84 @@ ruleTester.run('sort-prop-types', rule, {
     {
       code: `
         type Props = {
+          onClose: () => void; // closes the dialog
+          onSave?: () => void; // saves the dialog
+          id: string; // identifies the dialog
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      output: `
+        type Props = {
+          id: string; // identifies the dialog
+          onClose: () => void; // closes the dialog
+          onSave?: () => void; // saves the dialog
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      parser: parsers.TYPESCRIPT_ESLINT,
+      options: [{
+        callbacksLast: true,
+        noSortAlphabetically: true,
+        checkTypes: true,
+      }],
+      errors: [
+        {
+          messageId: 'callbackPropsLast',
+        },
+      ],
+    },
+    {
+      code: `
+        type Props = {
+          onClose: () => void;
+          onSave?: () => void;
+          initialContractInfo?: ContractInfo; // used to pre-populate the form just for our tests
+          contractVersionTraceId?: TraceId; // used when editing an existing contract
+          contractContainerId: TraceId;
+          wizardStartIndex?: number;
+          contractStatus?: BackendContractStatus;
+          contractVersion?: BackendContractVersion;
+        };
+        function ContractVersionWizard(props: Props) {
+          return <div />;
+        }
+      `,
+      output: `
+        type Props = {
+          initialContractInfo?: ContractInfo; // used to pre-populate the form just for our tests
+          contractVersionTraceId?: TraceId; // used when editing an existing contract
+          contractContainerId: TraceId;
+          wizardStartIndex?: number;
+          contractStatus?: BackendContractStatus;
+          contractVersion?: BackendContractVersion;
+          onClose: () => void;
+          onSave?: () => void;
+        };
+        function ContractVersionWizard(props: Props) {
+          return <div />;
+        }
+      `,
+      parser: parsers.TYPESCRIPT_ESLINT,
+      options: [{
+        callbacksLast: true,
+        requiredFirst: true,
+        sortShapeProp: true,
+        noSortAlphabetically: true,
+        checkTypes: true,
+      }],
+      errors: [
+        {
+          messageId: 'callbackPropsLast',
+        },
+      ],
+    },
+    {
+      code: `
+        type Props = {
           zzz: string;
           aaa: string;
         }
