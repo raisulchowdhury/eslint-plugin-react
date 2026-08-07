@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/4002-underscore-parent",
+  "message": "fix(no-unstable-nested-components): handle underscore parents",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/no-unstable-nested-components.js",
+      "anchor": "  invalid: parsers.all([\n",
+      "text": "    {\n      code: `\n        function _ParentComponent() {\n          function NestedComponent() {\n            return <div />;\n          }\n          return <NestedComponent />;\n        }\n      `,\n      errors: 1,\n    },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/no-unstable-nested-components.js --reporter dot"],
+  "expect_failure": true
+}
