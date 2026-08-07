@@ -4,8 +4,8 @@
     {
       "kind": "replace",
       "path": "docs/rules/self-closing-comp.md",
-      "old": "var contentContainer = <div className=\"content\"></div>;\n\nvar intentionalSpace = <div>{' '}</div>;\n\nvar HelloJohn = <Hello name=\"John\" />;",
-      "new": "var contentContainer = <div className=\"content\" />;\n\nvar intentionalSpace = <div>{' '}</div>;\n\nvar HelloJohn = <Hello name=\"John\" />;",
+      "old": "## Rule Details\n\nExamples of **incorrect** code for this rule:\n\n```jsx\nvar HelloJohn = <Hello name=\"John\"></Hello>;\n\nvar HelloJohnCompound = <Hello.Compound name=\"John\"></Hello.Compound>;\n```\n\nExamples of **correct** code for this rule:\n\n```jsx\nvar contentContainer = <div className=\"content\"></div>;",
+      "new": "## Rule Details\n\nExamples of **incorrect** code for this rule:\n\n```jsx\nvar HelloJohn = <Hello name=\"John\"></Hello>;\n\nvar HelloJohnCompound = <Hello.Compound name=\"John\"></Hello.Compound>;\n```\n\nExamples of **correct** code for this rule:\n\n```jsx\nvar contentContainer = <div className=\"content\" />;",
       "expected": 1
     }
   ]
