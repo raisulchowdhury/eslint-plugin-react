@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/3993-transition-events",
+  "message": "fix(no-unknown-property): add CSS transition events",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/no-unknown-property.js",
+      "anchor": "    { code: '<div onScrollEndCapture={this._onScrollEndCapture}></div>;' },\n",
+      "text": "    { code: '<div onTransitionCancel={this._onTransitionCancel}></div>;' },\n    { code: '<div onTransitionCancelCapture={this._onTransitionCancelCapture}></div>;' },\n    { code: '<div onTransitionRun={this._onTransitionRun}></div>;' },\n    { code: '<div onTransitionRunCapture={this._onTransitionRunCapture}></div>;' },\n    { code: '<div onTransitionStart={this._onTransitionStart}></div>;' },\n    { code: '<div onTransitionStartCapture={this._onTransitionStartCapture}></div>;' },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/no-unknown-property.js --reporter dot"],
+  "expect_failure": true
+}
