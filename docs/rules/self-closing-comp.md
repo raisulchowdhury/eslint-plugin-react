@@ -21,7 +21,7 @@ var HelloJohnCompound = <Hello.Compound name="John"></Hello.Compound>;
 Examples of **correct** code for this rule:
 
 ```jsx
-var contentContainer = <div className="content"></div>;
+var contentContainer = <div className="content" />;
 
 var intentionalSpace = <div>{' '}</div>;
 
