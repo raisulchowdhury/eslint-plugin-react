@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/3584-jsx-comment-newline",
+  "message": "fix(jsx-curly-newline): ignore comment-only containers",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/jsx-curly-newline.js",
+      "anchor": "  valid: parsers.all([\n",
+      "text": "    {\n      code: `\n        <div>\n          {/* <FormGroup\n            helperTextInvalid={helperText}\n            inputProps={inputProps}\n            type=\"password\"\n          /> */}\n        </div>\n      `,\n      options: [{ multiline: 'forbid', singleline: 'forbid' }],\n    },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/jsx-curly-newline.js --reporter dot"],
+  "expect_failure": true
+}
