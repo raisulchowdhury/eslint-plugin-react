@@ -96,23 +96,19 @@ jobs:
                   raise SystemExit('red verification requires a test command')
               if failures == 0:
                   raise SystemExit('expected focused test to fail, but it passed')
+              Path('../request/.status').write_text('red')
               print('RED VERIFIED')
           elif failures:
               raise SystemExit(f'{failures} focused verification command(s) failed')
+          else:
+              Path('../request/.status').write_text('green')
           PY
-      - name: Commit verified patch
+      - name: Commit verified target patch
         if: success()
         shell: bash
         working-directory: target
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          spec = json.loads(Path('../request/.request.json').read_text())
-          if spec.get('expect_failure'):
-              Path('../request/.red-only').write_text('1')
-          PY
-          if [ -f ../request/.red-only ]; then
+          if [ "$(cat ../request/.status)" = "red" ]; then
             echo 'Red phase only; target branch unchanged.'
             exit 0
           fi
@@ -122,3 +118,25 @@ jobs:
           git add -A
           git commit -m "$msg"
           git push origin "HEAD:${{ steps.meta.outputs.branch }}"
+      - name: Record verifier result
+        if: success()
+        shell: bash
+        working-directory: request
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          spec = json.loads(Path('.request.json').read_text())
+          status = Path('.status').read_text().strip()
+          Path('.result.json').write_text(json.dumps({
+              'status': status,
+              'target_branch': spec['target_branch'],
+              'message': spec['message'],
+          }, indent=2) + '\n')
+          Path('.status').unlink()
+          PY
+          git config user.name 'oss-verifier'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add .result.json
+          git commit -m 'verify: record result [skip ci]'
+          git push origin HEAD:${GITHUB_REF_NAME}
