@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/4014-boolean-attr-crash",
+  "message": "fix(forbid-dom-props): handle boolean JSX attributes",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/forbid-dom-props.js",
+      "anchor": "  valid: parsers.all([\n",
+      "text": "    { code: '<input required />', options: [{ forbid: ['id'] }] },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/forbid-dom-props.js --reporter dot"],
+  "expect_failure": true
+}
