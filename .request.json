@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/3919-for-of-crash",
+  "message": "fix(jsx-no-literals): handle for-of declarators",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/jsx-no-literals.js",
+      "anchor": "  valid: parsers.all([\n",
+      "text": "    {\n      code: `\n        for (const training of formData.trainings) {\n          if (!training.name.trim()) {\n            console.log('missing name');\n          }\n        }\n      `,\n      options: [{ elementOverrides: { Trans: { allowElement: true } } }],\n    },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/jsx-no-literals.js --reporter dot"],
+  "expect_failure": true
+}
