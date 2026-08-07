@@ -1,0 +1,12 @@
+{
+  "message": "docs: fix self-closing-comp default example",
+  "operations": [
+    {
+      "kind": "replace",
+      "path": "docs/rules/self-closing-comp.md",
+      "old": "var contentContainer = <div className=\"content\"></div>;\n\nvar intentionalSpace = <div>{' '}</div>;\n\nvar HelloJohn = <Hello name=\"John\" />;",
+      "new": "var contentContainer = <div className=\"content\" />;\n\nvar intentionalSpace = <div>{' '}</div>;\n\nvar HelloJohn = <Hello name=\"John\" />;",
+      "expected": 1
+    }
+  ]
+}
