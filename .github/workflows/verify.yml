@@ -40,8 +40,12 @@ jobs:
           root = Path('target')
           for op in spec['operations']:
               path = root / op['path']
-              text = path.read_text()
               kind = op['kind']
+              if kind == 'delete':
+                  if path.exists():
+                      path.unlink()
+                  continue
+              text = path.read_text()
               if kind == 'replace':
                   old, new = op['old'], op['new']
                   expected = op.get('expected', 1)
