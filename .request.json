@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/4004-create-element-danger",
+  "message": "fix(no-danger): check React.createElement props",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/no-danger.js",
+      "anchor": "  invalid: parsers.all([\n",
+      "text": "    {\n      code: 'React.createElement(\\\"div\\\", { dangerouslySetInnerHTML: { __html: \\\"\\\" } });',\n      errors: [{ messageId: 'dangerousProp', data: { name: 'dangerouslySetInnerHTML' } }],\n    },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/no-danger.js --reporter dot"],
+  "expect_failure": true
+}
