@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/3664-custom-validators-docs",
+  "message": "docs: explain prop-types customValidators",
+  "operations": [
+    {
+      "kind": "replace",
+      "path": "docs/rules/prop-types.md",
+      "old": "- `customValidators`: optional array of validators used for propTypes validation.\n- `skipUndeclared`: optional boolean to only error on components that have a propTypes block declared.\n",
+      "new": "- `customValidators`: optional array of custom validator names that should be treated like built-in `PropTypes` validators. This is useful when your project wraps or extends PropTypes with its own validator functions.\n- `skipUndeclared`: optional boolean to only error on components that have a propTypes block declared.\n\nFor example, if your project exposes a `forbidExtraProps` validator, list that validator name so the rule knows that calls through it still declare prop types:\n\n```js\n// eslint configuration\n\"react/prop-types\": [\"error\", {\n  customValidators: [\"forbidExtraProps\"]\n}]\n```\n\n```jsx\nMyComponent.propTypes = forbidExtraProps({\n  name: PropTypes.string.isRequired\n});\n```\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx markdownlint docs/rules/prop-types.md"],
+  "expect_failure": false
+}
