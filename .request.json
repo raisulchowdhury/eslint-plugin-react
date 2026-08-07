@@ -1,0 +1,16 @@
+{
+  "target_branch": "oss/3922-min-props",
+  "message": "feat(jsx-sort-props): add minProps option",
+  "operations": [
+    {
+      "kind": "insert_after",
+      "path": "tests/lib/rules/jsx-sort-props.js",
+      "anchor": "    { code: '<App a=\"c\" b=\"b\" c=\"a\" />;' },\n",
+      "text": "    { code: '<App b=\"b\" a=\"a\" />;', options: [{ minProps: 3 }] },\n",
+      "expected": 1
+    }
+  ],
+  "setup_commands": ["npm install --no-audit --no-fund"],
+  "test_commands": ["npx mocha tests/lib/rules/jsx-sort-props.js --reporter dot"],
+  "expect_failure": true
+}
