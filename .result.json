@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/3993-transition-events",
+  "message": "fix(no-unknown-property): add CSS transition events"
+}
