@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/3919-for-of-crash",
+  "message": "fix(jsx-no-literals): handle for-of declarators"
+}
