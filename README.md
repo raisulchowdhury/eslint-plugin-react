@@ -277,6 +277,40 @@ module.exports = [
 ];
 ```
 
+### Sharing a flat config from a monorepo package
+
+A workspace package can export React's flat configs as part of a shared ESLint configuration. Include both `flat.recommended` and `flat['jsx-runtime']` when consuming projects use the React 17+ JSX transform, then layer project-specific globals and settings on top.
+
+```js
+// packages/eslint-config/react.js
+const reactPlugin = require('eslint-plugin-react');
+const globals = require('globals');
+
+module.exports = [
+  {
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+    ...reactPlugin.configs.flat.recommended,
+    languageOptions: {
+      ...reactPlugin.configs.flat.recommended.languageOptions,
+      globals: { ...globals.browser },
+    },
+    settings: { react: { version: 'detect' } },
+  },
+  {
+    files: ['**/*.{js,mjs,cjs,jsx,ts,tsx}'],
+    ...reactPlugin.configs.flat['jsx-runtime'],
+  },
+];
+```
+
+A consuming workspace can then spread the shared array from its own flat config:
+
+```js
+const reactConfig = require('@acme/eslint-config/react');
+
+module.exports = [...reactConfig];
+```
+
 ## List of supported rules
 
 <!-- begin auto-generated rules list -->
