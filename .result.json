@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/4014-boolean-attr-crash",
+  "message": "fix(forbid-dom-props): handle boolean JSX attributes"
+}
