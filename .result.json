@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/3584-jsx-comment-newline",
+  "message": "fix(jsx-curly-newline): ignore comment-only containers"
+}
