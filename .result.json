@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/4004-create-element-danger",
+  "message": "fix(no-danger): check React.createElement props"
+}
