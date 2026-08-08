@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/4002-underscore-parent",
+  "message": "fix(no-unstable-nested-components): handle underscore parents"
+}
