@@ -7,6 +7,8 @@
 Require that the value of the prop `style` be an object or a variable that is
 an object.
 
+When a style object is created inline during render, it is a new object on every render. Components that rely on referential equality (for example, memoized children) may therefore re-render unnecessarily. If the style value is static or reusable, prefer reusing an object declared outside the render path or memoizing it when appropriate.
+
 ## Rule Details
 
 Examples of **incorrect** code for this rule:
