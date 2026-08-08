@@ -150,8 +150,23 @@ This rule can take one argument to ignore some specific props during validation.
 
 - `enabled`: for enabling the rule. 0=off, 1=warn, 2=error. Defaults to 0.
 - `ignore`: optional array of props name to ignore during validation.
-- `customValidators`: optional array of validators used for propTypes validation.
+- `customValidators`: optional array of custom validator names that should be treated like built-in `PropTypes` validators. This is useful when your project wraps or extends PropTypes with its own validator functions.
 - `skipUndeclared`: optional boolean to only error on components that have a propTypes block declared.
+
+For example, if your project exposes a `forbidExtraProps` validator, list that validator name so the rule knows that calls through it still declare prop types:
+
+```js
+// eslint configuration
+"react/prop-types": ["error", {
+  customValidators: ["forbidExtraProps"]
+}]
+```
+
+```jsx
+MyComponent.propTypes = forbidExtraProps({
+  name: PropTypes.string.isRequired
+});
+```
 
 ### As for "exceptions"
 
