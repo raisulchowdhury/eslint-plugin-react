@@ -1,0 +1,5 @@
+{
+  "status": "red",
+  "target_branch": "oss/3922-min-props",
+  "message": "feat(jsx-sort-props): add minProps option"
+}
