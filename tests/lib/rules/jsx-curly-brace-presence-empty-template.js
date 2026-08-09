@@ -22,6 +22,12 @@ ruleTester.run('jsx-curly-brace-presence empty template literal whitespace', rul
   ],
   invalid: [
     {
+      code: '<App prop={`foo`} />',
+      options: [{ props: 'never' }],
+      output: '<App prop="foo" />',
+      errors: [{ messageId: 'unnecessaryCurly' }],
+    },
+    {
       code: '<span><span>The braces</span>{``}matter here.</span>',
       options: [{ children: 'never' }],
       output: '<span><span>The braces</span>matter here.</span>',
