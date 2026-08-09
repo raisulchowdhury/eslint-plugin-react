@@ -510,5 +510,16 @@ ruleTester.run('forbid-dom-props', rule, {
         },
       ],
     },
+    {
+      code: '<input required />',
+      options: [{ forbid: ['required'] }],
+      errors: [
+        {
+          messageId: 'propIsForbidden',
+          data: { prop: 'required' },
+          type: 'JSXAttribute',
+        },
+      ],
+    },
   ]),
 });
