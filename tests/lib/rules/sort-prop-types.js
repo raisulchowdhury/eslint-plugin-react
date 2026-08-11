@@ -2350,6 +2350,105 @@ ruleTester.run('sort-prop-types', rule, {
       code: `
         type Props = {
           onClose: () => void;
+          // identifies the dialog
+          id: string;
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      output: `
+        type Props = {
+          // identifies the dialog
+          id: string;
+          onClose: () => void;
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      parser: parsers.TYPESCRIPT_ESLINT,
+      options: [{
+        callbacksLast: true,
+        noSortAlphabetically: true,
+        checkTypes: true,
+      }],
+      errors: [
+        {
+          messageId: 'callbackPropsLast',
+        },
+      ],
+    },
+    {
+      code: `
+        type Props = {
+          onClose: () => void; // closes the dialog
+          // identifies the dialog
+          id: string;
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      output: `
+        type Props = {
+          // identifies the dialog
+          id: string;
+          onClose: () => void; // closes the dialog
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      parser: parsers.TYPESCRIPT_ESLINT,
+      options: [{
+        callbacksLast: true,
+        noSortAlphabetically: true,
+        checkTypes: true,
+      }],
+      errors: [
+        {
+          messageId: 'callbackPropsLast',
+        },
+      ],
+    },
+    {
+      code: `
+        type Props = {
+          onClose: () => void; /* closes the dialog */
+          /* identifies the dialog */
+          id: string;
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      output: `
+        type Props = {
+          /* identifies the dialog */
+          id: string;
+          onClose: () => void; /* closes the dialog */
+        };
+        function Dialog(props: Props) {
+          return <div />;
+        }
+      `,
+      parser: parsers.TYPESCRIPT_ESLINT,
+      options: [{
+        callbacksLast: true,
+        noSortAlphabetically: true,
+        checkTypes: true,
+      }],
+      errors: [
+        {
+          messageId: 'callbackPropsLast',
+        },
+      ],
+    },
+    {
+      code: `
+        type Props = {
+          onClose: () => void;
           onSave?: () => void;
           initialContractInfo?: ContractInfo; // used to pre-populate the form just for our tests
           contractVersionTraceId?: TraceId; // used when editing an existing contract
